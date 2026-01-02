@@ -2,7 +2,7 @@
   <div class="random-generator">
     <h2>🎲 骰子</h2>
 
-    <button @click="generateRandomSample">点击生成</button>
+    <button @click="generateRandomSample" ref="buttonRef" v-fireworks>点击生成</button>
 
     <div v-if="result !== null" class="result-container">
       <p>生成结果：</p>
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-
+import { vFireworks } from '@/utils/fireworks';
 // 定义响应式变量
 // const min = ref(1);
 // const max = ref(100);
