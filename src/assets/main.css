@@ -1,35 +1,49 @@
 @import './base.css';
 
 #app {
+  /* 设置应用容器的最大宽度为1280px，防止在大屏幕上内容过宽 */
   max-width: 1280px;
+  /* 设置容器水平居中 */
   margin: 0 auto;
+  /* 设置容器内边距为2rem，提供内容与边界的间距 */
   padding: 2rem;
+  /* 设置字体粗细为正常 */
   font-weight: normal;
 }
 
 a,
 .green {
+  /* 移除链接的下划线装饰 */
   text-decoration: none;
+  /* 设置链接文字颜色为绿色色调(H=160, S=100%, L=37%) */
   color: hsla(160, 100%, 37%, 1);
+  /* 设置过渡动画持续时间为0.4秒，用于平滑颜色变化 */
   transition: 0.4s;
+  /* 为链接添加3px的内边距，增加点击区域 */
   padding: 3px;
 }
 
 @media (hover: hover) {
   a:hover {
+    /* 鼠标悬停时为链接添加半透明绿色背景 */
     background-color: hsla(160, 100%, 37%, 0.2);
   }
 }
 
 @media (min-width: 1024px) {
   body {
+    /* 在大屏幕上使用flex布局 */
     display: flex;
+    /* 将项目放置在容器中央 */
     place-items: center;
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    /* 在大屏幕上使用网格布局 */
+    /* display: grid; */
+    /* 设置两列等宽的网格布局 */
+    /* grid-template-columns: 1fr 1fr; */
+    /* 调整大屏幕下容器的左右内边距 */
+    /* padding: 0 2rem; */
   }
 }

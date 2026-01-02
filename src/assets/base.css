@@ -1,55 +1,87 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
+  /* 白色基础色调 */
   --vt-c-white: #ffffff;
+  /* 柔和的白色，用于浅色背景 */
   --vt-c-white-soft: #f8f8f8;
+  /* 暗淡的白色，用于更暗的背景 */
   --vt-c-white-mute: #f2f2f2;
 
+  /* 深色主题下的基础黑色 */
   --vt-c-black: #181818;
+  /* 柔和的黑色，用于深色背景 */
   --vt-c-black-soft: #222222;
+  /* 暗淡的黑色，用于更暗的背景 */
   --vt-c-black-mute: #282828;
 
+  /* indigo 主色调，用于标题和深色文本 */
   --vt-c-indigo: #2c3e50;
 
+  /* 浅色主题下的深色分隔线，不透明度较高 */
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+  /* 浅色主题下的深色分隔线，不透明度较低 */
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  /* 深色主题下的浅色分隔线，不透明度较高 */
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  /* 深色主题下的浅色分隔线，不透明度较低 */
   --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
 
+  /* 浅色主题下深色文本的第一级 */
   --vt-c-text-light-1: var(--vt-c-indigo);
+  /* 浅色主题下深色文本的第二级，较淡 */
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  /* 深色主题下浅色文本的第一级 */
   --vt-c-text-dark-1: var(--vt-c-white);
+  /* 深色主题下浅色文本的第二级，较淡 */
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
 /* semantic color variables for this project */
 :root {
+  /* 页面背景颜色 */
   --color-background: var(--vt-c-white);
+  /* 柔和的背景色，用于卡片或区域背景 */
   --color-background-soft: var(--vt-c-white-soft);
+  /* 暗淡的背景色，用于次要区域背景 */
   --color-background-mute: var(--vt-c-white-mute);
 
+  /* 边框颜色 */
   --color-border: var(--vt-c-divider-light-2);
+  /* 悬停时的边框颜色 */
   --color-border-hover: var(--vt-c-divider-light-1);
 
+  /* 标题文本颜色 */
   --color-heading: var(--vt-c-text-light-1);
+  /* 常规文本颜色 */
   --color-text: var(--vt-c-text-light-1);
 
+  /* 区块之间的间距 */
   --section-gap: 160px;
 }
 
+/* 深色主题样式 */
 @media (prefers-color-scheme: dark) {
   :root {
+    /* 深色模式下的页面背景 */
     --color-background: var(--vt-c-black);
+    /* 深色模式下的柔和背景 */
     --color-background-soft: var(--vt-c-black-soft);
+    /* 深色模式下的暗淡背景 */
     --color-background-mute: var(--vt-c-black-mute);
 
+    /* 深色模式下的边框颜色 */
     --color-border: var(--vt-c-divider-dark-2);
+    /* 深色模式下悬停时的边框颜色 */
     --color-border-hover: var(--vt-c-divider-dark-1);
 
+    /* 深色模式下的标题颜色 */
     --color-heading: var(--vt-c-text-dark-1);
+    /* 深色模式下的文本颜色 */
     --color-text: var(--vt-c-text-dark-2);
   }
 }
 
+/* 重置盒模型和边距 */
 *,
 *::before,
 *::after {
@@ -58,6 +90,7 @@
   font-weight: normal;
 }
 
+/* 页面主体样式 */
 body {
   min-height: 100vh;
   color: var(--color-text);
