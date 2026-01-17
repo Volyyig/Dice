@@ -18,7 +18,7 @@ export class Particle {
     this.vy = Math.sin(angle) * force;
 
     // 2. 在构造函数中生成随机大小 (例如 1.5 到 4 之间)
-    this.radius = Math.random() * 2.5 + 1.5; 
+    this.radius = Math.random() * 5 + 5; 
     
     // 技巧：较大的粒子通常消失得稍慢一点，这样更有层次感
     this.decay = Math.random() * 0.01 + (this.radius > 3 ? 0.005 : 0.015);
