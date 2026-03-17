@@ -9,6 +9,8 @@
   padding: 2rem;
   /* 设置字体粗细为正常 */
   font-weight: normal;
+  /* 禁止文本被选中 */
+  user-select: none;
 }
 
 a,
@@ -27,23 +29,5 @@ a,
   a:hover {
     /* 鼠标悬停时为链接添加半透明绿色背景 */
     background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    /* 在大屏幕上使用flex布局 */
-    display: flex;
-    /* 将项目放置在容器中央 */
-    place-items: center;
-  }
-
-  #app {
-    /* 在大屏幕上使用网格布局 */
-    /* display: grid; */
-    /* 设置两列等宽的网格布局 */
-    /* grid-template-columns: 1fr 1fr; */
-    /* 调整大屏幕下容器的左右内边距 */
-    /* padding: 0 2rem; */
   }
 }
