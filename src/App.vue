@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Dice from './components/Dice.vue'
+import FateDraw from './components/FateDraw.vue'
 import History from './components/History.vue'
 import type { HistoryItem } from './components/History.vue'
 
@@ -13,6 +14,7 @@ const handleSave = (item: HistoryItem) => {
 
 <template>
   <div class="app-container">
+    <FateDraw @save="handleSave" />
     <Dice @save="handleSave" />
     <History :items="history" />
   </div>
