@@ -14,7 +14,7 @@ const handleSave = (item: HistoryItem) => {
 
 <template>
   <div class="app-container">
-    <FateDraw @save="handleSave" />
+    <!-- <FateDraw @save="handleSave" /> -->
     <Dice @save="handleSave" />
     <History :items="history" />
   </div>
