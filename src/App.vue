@@ -1,38 +1,30 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Dice from './components/Dice.vue'
+import History from './components/History.vue'
+import type { HistoryItem } from './components/History.vue'
+
+const history = ref<HistoryItem[]>([]);
+
+const handleSave = (item: HistoryItem) => {
+  history.value = [item, ...history.value.slice(0, 4)];
+}
 </script>
 
 <template>
-  <div>
-    <Dice/>
+  <div class="app-container">
+    <Dice @save="handleSave" />
+    <History :items="history" />
   </div>
 </template>
 
 <style scoped>
-body {
-  background: #000;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: auto;
+  max-width: 300px;
 }
 </style>
