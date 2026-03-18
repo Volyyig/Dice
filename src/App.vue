@@ -4,13 +4,18 @@ import Dice from './components/Dice.vue'
 import FateDraw from './components/FateDraw.vue'
 import History from './components/History.vue'
 import SideBar from './components/SideBar.vue'
+import FullHistory from './components/FullHistory.vue'
+import FateEncyclopedia from './components/FateEncyclopedia.vue'
+import { fatePool } from './data/fatePool'
 import type { HistoryItem } from './components/History.vue'
 
 const history = ref<HistoryItem[]>([]);
 const isSidebarOpen = ref(false);
+const isFullHistoryOpen = ref(false);
+const isEncyclopediaOpen = ref(false);
 
 const handleSave = (item: HistoryItem) => {
-  history.value = [item, ...history.value.slice(0, 19)]; // Increased to 20 items for better history
+  history.value = [item, ...history.value.slice(0, 49)]; // Limit to 50 items
 }
 
 const toggleSidebar = () => {
@@ -51,11 +56,29 @@ watch(history, (newHistory) => {
       </svg>
     </button>
 
-    <SideBar :is-open="isSidebarOpen" @close="isSidebarOpen = false" @reset="handleReset" />
+    <SideBar 
+      :is-open="isSidebarOpen" 
+      @close="isSidebarOpen = false" 
+      @reset="handleReset" 
+      @open-full-history="isFullHistoryOpen = true"
+      @open-encyclopedia="isEncyclopediaOpen = true"
+    />
+
+    <FullHistory 
+      :is-open="isFullHistoryOpen" 
+      :items="history" 
+      @close="isFullHistoryOpen = false" 
+    />
+
+    <FateEncyclopedia
+      :is-open="isEncyclopediaOpen"
+      :items="fatePool"
+      @close="isEncyclopediaOpen = false"
+    />
 
     <FateDraw @save="handleSave" />
     <Dice @save="handleSave" />
-    <History :items="history" />
+    <History :items="history.slice(0, 5)" />
   </div>
 </template>
 

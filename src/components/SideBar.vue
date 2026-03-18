@@ -7,8 +7,18 @@
     <div class="sidebar-content">
       <h2>设置</h2>
       <div class="divider"></div>
+      
+      <div class="sidebar-menu">
+        <button class="menu-item-btn" @click="$emit('open-full-history')">
+          📜 历史记录
+        </button>
+        <button class="menu-item-btn" @click="$emit('open-encyclopedia')">
+          📕 命运图鉴
+        </button>
+      </div>
+      <div class="divider"></div>
       <button class="reset-btn" :class="{ confirming: resetConfirm }" @click="handleReset">
-        {{ resetConfirm ? '确定重置吗？' : '重置' }}
+        {{ resetConfirm ? '确定开启新游戏吗？' : '新游戏' }}
       </button>
     </div>
   </div>
@@ -24,6 +34,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void;
   (e: 'reset'): void;
+  (e: 'open-full-history'): void;
+  (e: 'open-encyclopedia'): void;
 }>();
 
 const resetConfirm = ref(false);
@@ -38,7 +50,7 @@ const handleReset = () => {
   resetConfirm.value = false;
 };
 
-// Reset confirmation state when sidebar closes
+// Reset states when sidebar closes
 watch(() => props.isOpen, (newVal) => {
   if (!newVal) {
     resetConfirm.value = false;
@@ -77,7 +89,7 @@ watch(() => props.isOpen, (newVal) => {
 }
 
 .sidebar-content h2 {
-  margin-top: 40px;
+  margin-top: 0px;
   margin-bottom: 20px;
   color: var(--color-heading);
   text-align: center;
@@ -89,12 +101,36 @@ watch(() => props.isOpen, (newVal) => {
   margin: 20px 0;
 }
 
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-background-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.menu-item-btn:hover {
+  background: var(--color-background-mute);
+  border-color: #3498db;
+}
+
 .reset-btn {
   width: 100%;
   padding: 12px;
-  background: #fdf0f0;
-  border: 1px solid #fab1a0;
-  color: #e17055;
+  background: #eef9ef;
+  border: 1px solid #b7e4c7;
+  color: #2d6a4f;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -102,15 +138,15 @@ watch(() => props.isOpen, (newVal) => {
 }
 
 .reset-btn:hover {
-  background: #ff7675;
+  background: #74c69d;
   color: white;
-  border-color: #d63031;
+  border-color: #52b788;
 }
 
 .reset-btn.confirming {
-  background: #d63031;
+  background: #40916c;
   color: white;
-  border-color: #c0392b;
+  border-color: #2d6a4f;
   animation: shake 0.5s ease-in-out;
 }
 
