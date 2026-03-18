@@ -29,8 +29,6 @@ const currentColor = computed(() => {
 });
 
 
-
-
 // 生成随机数的函数
 const generateRandomSample = () => {
   colorIndex.value = (colorIndex.value + 1) % colors.length;
@@ -60,33 +58,6 @@ onMounted(()=>{
   text-align: center;
   font-family: Arial, sans-serif;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.input-group {
-  margin-bottom: 15px;
-}
-
-input {
-  width: 60px;
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-button {
-  background-color: #42b983;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  height: 100px;
-}
-
-button:hover {
-  background-color: #3aa876;
 }
 
 .result-container {

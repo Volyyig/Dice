@@ -28,7 +28,6 @@ defineProps<{
   border: 1px solid #ddd;
   border-radius: 10px;
   margin: 5px auto;
-  max-width: 300px;
   font-family: Arial, sans-serif;
   padding: 1px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
