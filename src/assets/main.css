@@ -11,6 +11,8 @@
   font-weight: normal;
   /* 禁止文本被选中 */
   user-select: none;
+  /* 隐藏移动端的蓝色高亮 */
+  -webkit-tap-highlight-color: transparent;
 }
 
 a,
