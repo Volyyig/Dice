@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { vFireworks } from '@/utils/fireworks';
 import { Fate, FateCategory } from '@/types/Fate';
 import type { HistoryItem } from './History.vue';
@@ -82,8 +82,13 @@ const shuffle = (array: Fate[]) => {
   return newArray;
 };
 
-const initializeDeck = () => {
-  deck.value = shuffle(fatePool);
+const initializeDeck = (savedDeckNames?: string[]) => {
+  if (savedDeckNames && savedDeckNames.length > 0) {
+    // Map names back to Fate objects from fatePool
+    deck.value = savedDeckNames.map(name => fatePool.find(f => f.name === name)).filter(Boolean) as Fate[];
+  } else {
+    deck.value = shuffle(fatePool);
+  }
 };
 
 const drawFate = () => {
@@ -123,8 +128,32 @@ const discardDelayedFate = (index: number) => {
 };
 
 onMounted(() => {
-  initializeDeck();
+  const savedDeck = localStorage.getItem('fate_deck');
+  const savedDelayed = localStorage.getItem('fate_delayed');
+  
+  if (savedDeck) {
+    const names = JSON.parse(savedDeck) as string[];
+    initializeDeck(names);
+  } else {
+    initializeDeck();
+  }
+
+  if (savedDelayed) {
+    const names = JSON.parse(savedDelayed) as string[];
+    delayedFates.value = names.map(name => fatePool.find(f => f.name === name)).filter(Boolean) as Fate[];
+  }
 });
+
+// Watch and save state
+watch(deck, (newDeck: Fate[]) => {
+  const names = newDeck.map((f: Fate) => f.name);
+  localStorage.setItem('fate_deck', JSON.stringify(names));
+}, { deep: true });
+
+watch(delayedFates, (newDelayed: Fate[]) => {
+  const names = newDelayed.map((f: Fate) => f.name);
+  localStorage.setItem('fate_delayed', JSON.stringify(names));
+}, { deep: true });
 </script>
 
 

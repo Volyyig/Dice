@@ -2,16 +2,15 @@
   <div class="random-generator" v-fireworks @click="saveToHistory(); generateRandomSample();">
     <h2>🎲 骰子</h2>
 
-    <div v-if="result !== null" class="result-container">
-        <span class="result-number" :style="{ color: currentColor }">{{ result }}</span>
-      
+    <div class="result-container">
+        <span class="result-number" :style="{ color: currentColor }">{{ result ?? '?' }}</span>
     </div>
   </div>
 
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { vFireworks } from '@/utils/fireworks';
 import type { HistoryItem } from './History.vue';
 
@@ -44,9 +43,25 @@ const saveToHistory = () => {
   emit('save', item);
 }
 
-onMounted(()=>{
-  generateRandomSample();
-})
+onMounted(() => {
+  const savedResult = localStorage.getItem('dice_result');
+  const savedColorIndex = localStorage.getItem('dice_color_index');
+  
+  if (savedResult !== null && savedColorIndex !== null) {
+    result.value = Number(savedResult);
+    colorIndex.value = Number(savedColorIndex);
+  }
+});
+
+watch(result, (newVal) => {
+  if (newVal !== null) {
+    localStorage.setItem('dice_result', newVal.toString());
+  }
+});
+
+watch(colorIndex, (newVal) => {
+  localStorage.setItem('dice_color_index', newVal.toString());
+});
 </script>
 
 <style scoped>
