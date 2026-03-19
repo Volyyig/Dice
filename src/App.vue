@@ -82,8 +82,8 @@ watch(history, (newHistory) => {
       @close="isEncyclopediaOpen = false"
     />
 
-    <FateDraw @save="handleSave" />
     <Dice @save="handleSave" />
+    <FateDraw @save="handleSave" />
     <History :items="history.slice(0, 10)" />
   </div>
 </template>
