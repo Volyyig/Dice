@@ -6,7 +6,7 @@
   /* 设置容器水平居中 */
   margin: 0 auto;
   /* 设置容器内边距为2rem，提供内容与边界的间距 */
-  padding: 2rem;
+  /* padding: 1rem; */
   /* 设置字体粗细为正常 */
   font-weight: normal;
   /* 禁止文本被选中 */

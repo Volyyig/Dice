@@ -95,14 +95,14 @@ watch(history, (newHistory) => {
   gap: 20px;
   margin: auto;
   max-width: 600px;
-  padding: 60px 20px 20px 20px; /* Added top padding for menu button */
+  padding: 70px 20px 20px 20px; /* Added top padding for menu button */
   position: relative;
 }
 
 .menu-btn {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 1rem;
+  left: 1rem;
   background: var(--color-background-soft);
   border: 1px solid var(--color-border);
   border-radius: 8px;
