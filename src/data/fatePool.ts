@@ -6,6 +6,11 @@ const formatEmphasis = (emphasis: string, type: 'gain' | 'loss') => {
   return `<span style="color: ${color}; font-weight: bold;">${emphasis}</span>`;
 };
 
+// 格式化：任意颜色
+const formatColor = (text: string, color: string) => {
+  return `<span style="color: ${color};">${text}</span>`;
+}
+
 // 随机选择
 const randomChoice = (text: string[]) => {
   return text[Math.floor(Math.random() * text.length)];
@@ -108,7 +113,7 @@ export const fatePool: FatePoolEntry[] = [
       "空间扭曲",
       name,
       FateCategory.Instant,
-      `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer])}投掷骰子，${randomChoice([formatEmphasis('前进', 'gain'), formatEmphasis('后吐', 'loss')])}投掷点数`,
+      `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, Condition.Default])}投掷骰子，${randomChoice([formatEmphasis('前进', 'gain'), formatEmphasis('后退', 'loss')])}投掷点数`,
       () => {
         console.log("Effect: Space warp");
       }
@@ -118,30 +123,18 @@ export const fatePool: FatePoolEntry[] = [
   {
     name: "时空裂缝",
     description: "被随机传送到地图某处",
-    factory: (name) => new Fate(
+    factory: (name) => {
+      const index = Math.floor(Math.random() * 64) - 32; // -32 至 31
+      return new Fate(
       "时空裂缝",
       name,
       FateCategory.Instant,
-      "随机传送到地图某处",
+      `随机传送到地图${index}处`,
       () => {
         console.log("Effect: Teleport");
       }
-    ),
+    )},
     count: 1
-  },
-  {
-    name: "守护天使",
-    description: "抵挡下一次受到的负面效果",
-    factory: (name) => new Fate(
-      "守护天使",
-      name,
-      FateCategory.Delayed,
-      `${formatEmphasis('抵挡', 'gain')}下一次受到的负面效果`,
-      () => {
-        console.log("Effect: Shield");
-      }
-    ),
-    count: 2
   },
   {
     name: "地租调整",
@@ -166,8 +159,8 @@ export const fatePool: FatePoolEntry[] = [
     factory: (name) => new Fate(
       "市场波动",
       name,
-      FateCategory.Instant,
-      `下次购买地皮时价格${randomChoice([formatEmphasis('减免', 'gain'), formatEmphasis('增加', 'loss')])}50%`,
+      FateCategory.Delayed,
+      `下次到空地皮时，价格${randomChoice([formatEmphasis('减免', 'gain'), formatEmphasis('增加', 'loss')])}50%`,
       () => {
         console.log("Effect: Market fluctuation");
       }
@@ -203,27 +196,31 @@ export const fatePool: FatePoolEntry[] = [
     count: 1
   },
   {
-    name: "救济金",
-    description: "每人救济1000元",
-    factory: (name) => new Fate(
-      "救济金",
-      name,
-      FateCategory.Instant,
-      `每人获得${formatEmphasis('1000', 'gain')}元`,
-      () => {
-        console.log("Effect: every player gains 1000 bounty");
-      }
-    ),
+    name: "共同富裕",
+    description: "每人救济/损失500-1500元",
+    factory: (name) => {
+      const bool_ = Math.random() < 0.5;
+      const amount = Math.floor(Math.random() * 11) * 100 + 500;
+      return new Fate(
+        bool_ ? "救济金" : "经济危机",
+        name,
+        FateCategory.Instant,
+        bool_ ? `每人获得${formatEmphasis(amount.toString(), 'gain')}元` : `每人损失${formatEmphasis(amount.toString(), 'loss')}元`,
+        () => {
+          console.log("Effect: every player gains 1000 bounty");
+        }
+      )
+    },
     count: 1
   },
   {
-    name: "误乘航班",
-    description: "退回起点",
+    name: "环球旅行",
+    description: "全图传送",
     factory: (name) => new Fate(
-      "误乘航班",
+      "环球旅行",
       name,
       FateCategory.Instant,
-      "退回起点",
+      `传送到${randomChoice([formatEmphasis("任意位置", "gain"), formatColor("起点", "#dbf800"), formatColor("夏威夷", "#dbf800"), formatColor("地中海", "#0078f8ff"), formatColor("北极", "#0078f8ff")])}`,
       () => {
         console.log("Effect: Teleport to start");
       }
@@ -231,10 +228,10 @@ export const fatePool: FatePoolEntry[] = [
     count: 1
   },
   {
-    name: "转向",
+    name: "迷失方向",
     description: "调转方向",
     factory: (name) => new Fate(
-      "转向",
+      "迷失方向",
       name,
       FateCategory.Instant,
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, Condition.Default])}${randomChoice([formatEmphasis('下回合', 'gain'), formatEmphasis('永久', 'loss')])}变向`,
@@ -251,7 +248,7 @@ export const fatePool: FatePoolEntry[] = [
       "乾坤大挪移",
       name,
       FateCategory.Instant,
-      `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, "距离最远的玩家"])}与你交换位置`,
+      `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, formatColor("距离最远的玩家", "#00b6f8ff")])}与你交换位置`,
       () => {
         console.log("Effect: swap position");
       }

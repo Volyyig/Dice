@@ -50,8 +50,8 @@ h4 {
 }
 
 .delayed-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 10px;
 }
 
@@ -63,9 +63,25 @@ h4 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.2s;
-  flex: 1 1 160px;
-  max-width: 240px;
   text-align: left;
+}
+
+@media (max-width: 480px) {
+  .delayed-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .delayed-card {
+    padding: 8px 10px;
+  }
+  
+  .delayed-name {
+    font-size: 0.85rem;
+  }
+  
+  .delayed-desc {
+    font-size: 0.75rem;
+  }
 }
 
 .delayed-card:hover {
