@@ -19,7 +19,7 @@
         <h4>⏳ 延时命运</h4>
       </div>
       <div class="delayed-list">
-        <div v-for="(fate, index) in delayedFates" :key="fate.canonicalName + index" class="delayed-card"
+        <div v-for="(fate, index) in delayedFates" :key="fate.name + index" class="delayed-card"
           @click="activateDelayedFate(index)" title="点击激活命运效果">
           <div class="delayed-card-inner">
             <div class="delayed-name">{{ fate.title }}</div>
@@ -79,14 +79,14 @@ const initializeDeck = (savedDeckNames?: string[]) => {
     // Map names back to Fate objects from fatePool factories
     deck.value = savedDeckNames.map(canonicalName => {
       const entry = fatePool.find(e => e.name === canonicalName);
-      return entry ? entry.factory() : null;
+      return entry ? entry.factory(entry.name) : null;
     }).filter(Boolean) as Fate[];
   } else {
     // Instantiate all fates based on their counts and shuffle
     const newDeck: Fate[] = [];
     fatePool.forEach(entry => {
       for (let i = 0; i < entry.count; i++) {
-        newDeck.push(entry.factory());
+        newDeck.push(entry.factory(entry.name));
       }
     });
     deck.value = shuffle(newDeck);
@@ -153,19 +153,19 @@ onMounted(() => {
     const names = JSON.parse(savedDelayed) as string[];
     delayedFates.value = names.map(canonicalName => {
       const entry = fatePool.find(e => e.name === canonicalName);
-      return entry ? entry.factory() : null;
+      return entry ? entry.factory(entry.name) : null;
     }).filter(Boolean) as Fate[];
   }
 });
 
 // Watch and save state
 watch(deck, (newDeck: Fate[]) => {
-  const names = newDeck.map((f: Fate) => f.canonicalName);
+  const names = newDeck.map((f: Fate) => f.name);
   localStorage.setItem('fate_deck', JSON.stringify(names));
 }, { deep: true });
 
 watch(delayedFates, (newDelayed: Fate[]) => {
-  const names = newDelayed.map((f: Fate) => f.canonicalName);
+  const names = newDelayed.map((f: Fate) => f.name);
   localStorage.setItem('fate_delayed', JSON.stringify(names));
 }, { deep: true });
 </script>

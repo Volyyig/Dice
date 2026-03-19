@@ -14,7 +14,7 @@ const isSidebarOpen = ref(false);
 const isFullHistoryOpen = ref(false);
 const isEncyclopediaOpen = ref(false);
 const encyclopediaItems = computed(() => fatePool.map(entry => ({
-  instance: entry.factory(),
+  instance: entry.factory(entry.name),
   name: entry.name,
   count: entry.count
 })));

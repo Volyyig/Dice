@@ -6,7 +6,7 @@ export enum FateCategory {
 export class Fate {
   constructor(
     public title: string,           // 真正显示在抽取时展示的信息框中显示的文字 (flavor title)
-    public canonicalName: string,   // 在图鉴中显示的固定名称 (stable identifier for persistence)
+    public name: string,            // 在图鉴中显示的固定名称 (stable identifier for persistence)
     public category: FateCategory,
     public description: string = '',
     public onDraw: string,            // 在抽取时展示的信息框中显示的文字

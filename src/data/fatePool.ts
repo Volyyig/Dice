@@ -19,18 +19,18 @@ const Condition = {
 
 export interface FatePoolEntry {
   name: string; // 在图鉴中显示的固定名称
-  factory: () => Fate;
+  factory: (name: string) => Fate;
   count: number;
 }
 
 export const fatePool: FatePoolEntry[] = [
   {
     name: "财神驾到",
-    factory: () => {
+    factory: (name) => {
       const amount = Math.floor(Math.random() * 121) * 10 + 300;
       return new Fate(
         "财神驾到",
-        "财神驾到",
+        name,
         FateCategory.Instant,
         "随机获得 300-1500 元",
         `获得 ${formatEmphasis(amount.toString(), 'gain')} 元`,
@@ -43,11 +43,11 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "霉运降临",
-    factory: () => {
+    factory: (name) => {
       const amount = Math.floor(Math.random() * 91) * 10 + 100;
       return new Fate(
         "霉运降临",
-        "霉运降临",
+        name,
         FateCategory.Instant,
         "随机损失 100-1000 元",
         `损失 ${formatEmphasis(amount.toString(), 'loss')} 元`,
@@ -60,9 +60,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "禁闭室",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "禁闭室",
-      "禁闭室",
+      name,
       FateCategory.Delayed,
       "暂停 1 回合",
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, Condition.Default])}暂停 1 回合`,
@@ -74,9 +74,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "行政休假",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "行政休假",
-      "行政休假",
+      name,
       FateCategory.Delayed,
       "本回合留在原地",
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer])}本回合留在原地`,
@@ -88,9 +88,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "快人一步",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "快人一步",
-      "快人一步",
+      name,
       FateCategory.Instant,
       "立即增加 1 回合",
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, Condition.Default])}立即增加 1 回合`,
@@ -102,9 +102,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "空间扭曲",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "空间扭曲",
-      "空间扭曲",
+      name,
       FateCategory.Instant,
       "某玩家移动随机步数",
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer])}投掷骰子，${randomChoice([formatEmphasis('前进', 'gain'), formatEmphasis('后退', 'loss')])}投掷点数`,
@@ -116,9 +116,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "时空裂缝",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "时空裂缝",
-      "时空裂缝",
+      name,
       FateCategory.Instant,
       "被随机传送到地图某处",
       "随机传送到地图某处",
@@ -130,9 +130,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "守护天使",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "守护天使",
-      "守护天使",
+      name,
       FateCategory.Delayed,
       "抵挡下一次受到的负面效果",
       `${formatEmphasis('抵挡', 'gain')}下一次受到的负面效果`,
@@ -144,9 +144,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "地租减免",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "地租减免",
-      "地租减免",
+      name,
       FateCategory.Delayed,
       "下次被收租时减免 50%",
       `下次被收租时减免${formatEmphasis('50%', 'gain')}`,
@@ -158,9 +158,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "地租翻倍",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "地租翻倍",
-      "地租翻倍",
+      name,
       FateCategory.Delayed,
       "下次被收租时地租翻倍",
       `下一步被收地租${formatEmphasis('翻倍', 'loss')}`,
@@ -172,9 +172,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "市场波动",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "市场波动",
-      "市场波动",
+      name,
       FateCategory.Instant,
       "下次购买地皮时价格波动 50%",
       `下次购买地皮时价格${randomChoice([formatEmphasis('减免', 'gain'), formatEmphasis('增加', 'loss')])}50%`,
@@ -186,9 +186,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "什一税",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "什一税",
-      "什一税",
+      name,
       FateCategory.Instant,
       "失去所有现金的 1/10",
       `失去所有现金的 ${formatEmphasis('1/10', 'loss')}`,
@@ -200,9 +200,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "房产税",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "房产税",
-      "房产税",
+      name,
       FateCategory.Instant,
       "房屋每幢250元",
       `房屋每幢${formatEmphasis('250', 'loss')}元`,
@@ -214,9 +214,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "救济金",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "救济金",
-      "救济金",
+      name,
       FateCategory.Instant,
       "每人救济1000元",
       `每人获得${formatEmphasis('1000', 'gain')}元`,
@@ -228,9 +228,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "误乘航班",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "误乘航班",
-      "误乘航班",
+      name,
       FateCategory.Instant,
       "退回起点",
       "退回起点",
@@ -242,9 +242,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "转向",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "转向",
-      "转向",
+      name,
       FateCategory.Instant,
       "调转方向",
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, Condition.Default])}${randomChoice([formatEmphasis('下回合', 'gain'), formatEmphasis('永久', 'loss')])}变向`,
@@ -256,9 +256,9 @@ export const fatePool: FatePoolEntry[] = [
   },
   {
     name: "乾坤大挪移",
-    factory: () => new Fate(
+    factory: (name) => new Fate(
       "乾坤大挪移",
-      "乾坤大挪移",
+      name,
       FateCategory.Instant,
       "和其他玩家交换位置",
       `${randomChoice([Condition.ControlPlayer, Condition.MaxDicePlayer, "距离最远的玩家"])}与你交换位置`,
@@ -269,17 +269,17 @@ export const fatePool: FatePoolEntry[] = [
     count: 1
   },
   {
-    name: "运动状态变化",
-    factory: () => {
+    name: "变速器",
+    factory: (name) => {
       const bool_ = Math.random() > 0.5;
       return new Fate(
         bool_ ? "光速跑路" : "地板胶粘",
-        "运动状态变化",
-        FateCategory.Instant,
-        bool_ ? "投掷骰子，前进投掷点数" : "投掷骰子，后退投掷点数",
-        bool_ ? "投掷骰子，前进投掷点数" : "投掷骰子，后退投掷点数",
+        name,
+        FateCategory.Delayed,
+        "下一步点数x2或x0.5",
+        bool_ ? `下一步点数${formatEmphasis('x2', 'gain')}` : `下一步点数${formatEmphasis('x0.5', 'loss')}`,
         () => {
-          console.log("Effect: " + (bool_ ? "move forward" : "move backward"));
+          console.log("Effect: " + (bool_ ? "multiplier x2" : "multiplier x0.5"));
         }
       )
     },
