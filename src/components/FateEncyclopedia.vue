@@ -20,7 +20,7 @@
             <div class="fate-count">x{{ item.count }}</div>
             <div class="fate-info">
               <h3>{{ item.name }}</h3>
-              <p class="fate-desc">{{ item.instance.description }}</p>
+              <p class="fate-desc">{{ item.description }}</p>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@ import { Fate, FateCategory } from '@/types/Fate';
 
 defineProps<{
   isOpen: boolean;
-  items: { instance: Fate; name: string; count: number }[];
+  items: { instance: Fate; name: string; description: string; count: number }[];
 }>();
 
 defineEmits<{

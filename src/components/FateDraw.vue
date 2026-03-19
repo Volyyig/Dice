@@ -23,7 +23,7 @@
           @click="activateDelayedFate(index)" title="点击激活命运效果">
           <div class="delayed-card-inner">
             <div class="delayed-name">{{ fate.title }}</div>
-            <div class="delayed-desc">{{ fate.description }}</div>
+            <div class="delayed-desc">{{ getFateDescription(fate.name) }}</div>
           </div>
         </div>
       </div>
@@ -63,6 +63,11 @@ const deck = ref<Fate[]>([]);
 const delayedFates = ref<Fate[]>([]);
 const drawnFate = ref<Fate | null>(null);
 const drawnFateEffectResult = ref('');
+
+// Helper to get static description from pool
+const getFateDescription = (name: string) => {
+  return fatePool.find(e => e.name === name)?.description || '';
+};
 
 // Shuffle utility
 const shuffle = (array: Fate[]) => {

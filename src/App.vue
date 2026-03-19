@@ -16,6 +16,7 @@ const isEncyclopediaOpen = ref(false);
 const encyclopediaItems = computed(() => fatePool.map(entry => ({
   instance: entry.factory(entry.name),
   name: entry.name,
+  description: entry.description,
   count: entry.count
 })));
 
