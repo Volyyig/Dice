@@ -88,7 +88,7 @@ const closeModal = () => {
   width: 100%;
   cursor: pointer;
   padding: 8px 12px;
-  border: 1px solid #764ba2;
+  border: 1px solid #7e00fb;
   border-radius: 12px;
   transition: all 0.3s ease;
 }

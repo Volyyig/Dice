@@ -1,6 +1,6 @@
 <template>
   <div class="random-generator" v-fireworks @click="saveToHistory(); generateRandomSample();">
-    <h2>🎲 骰子</h2>
+    <h3>🎲 骰子</h3>
 
     <div class="result-container">
         <span class="result-number" :style="{ color: currentColor }">{{ result ?? '?' }}</span>
