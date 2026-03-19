@@ -77,10 +77,11 @@ watch(colorIndex, (newVal) => {
 
 .result-container {
   /* margin-top: 20px; */
+  height: 200px;
 }
 
 .result-number {
-  font-size: 200px;
+  font-size: 150px;
   font-weight: bold;
   color: #42b983;
 }
