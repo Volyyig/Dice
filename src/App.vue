@@ -15,6 +15,7 @@ const isFullHistoryOpen = ref(false);
 const isEncyclopediaOpen = ref(false);
 const encyclopediaItems = computed(() => fatePool.map(entry => ({
   instance: entry.factory(),
+  name: entry.name,
   count: entry.count
 })));
 

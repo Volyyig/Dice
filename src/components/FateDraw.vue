@@ -19,10 +19,10 @@
         <h4>⏳ 延时命运</h4>
       </div>
       <div class="delayed-list">
-        <div v-for="(fate, index) in delayedFates" :key="fate.name + index" class="delayed-card"
+        <div v-for="(fate, index) in delayedFates" :key="fate.canonicalName + index" class="delayed-card"
           @click="activateDelayedFate(index)" title="点击激活命运效果">
           <div class="delayed-card-inner">
-            <div class="delayed-name">{{ fate.name }}</div>
+            <div class="delayed-name">{{ fate.title }}</div>
             <div class="delayed-desc">{{ fate.description }}</div>
           </div>
         </div>
@@ -36,7 +36,7 @@
           :class="drawnFate.category === FateCategory.Delayed ? 'type-delayed' : 'type-normal'">
           <div class="card-tag">{{ drawnFate.category }}</div>
           <div class="card-main">
-            <h2>{{ drawnFate.name }}</h2>
+            <h2>{{ drawnFate.title }}</h2>
             <div class="divider"></div>
             <p class="description" v-html="drawnFateEffectResult"></p>
           </div>
@@ -77,8 +77,8 @@ const shuffle = (array: Fate[]) => {
 const initializeDeck = (savedDeckNames?: string[]) => {
   if (savedDeckNames && savedDeckNames.length > 0) {
     // Map names back to Fate objects from fatePool factories
-    deck.value = savedDeckNames.map(name => {
-      const entry = fatePool.find(e => e.factory().name === name);
+    deck.value = savedDeckNames.map(canonicalName => {
+      const entry = fatePool.find(e => e.name === canonicalName);
       return entry ? entry.factory() : null;
     }).filter(Boolean) as Fate[];
   } else {
@@ -119,7 +119,7 @@ const drawFate = () => {
   // Save to history
   const now = new Date();
   const item: HistoryItem = {
-    value: `${fate.name}: ${drawnFateEffectResult.value}`,
+    value: `${fate.title}: ${drawnFateEffectResult.value}`,
     color: fate.category === FateCategory.Delayed ? '#f39c12' : '#3498db',
     time: `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
   };
@@ -151,8 +151,8 @@ onMounted(() => {
 
   if (savedDelayed) {
     const names = JSON.parse(savedDelayed) as string[];
-    delayedFates.value = names.map(name => {
-      const entry = fatePool.find(e => e.factory().name === name);
+    delayedFates.value = names.map(canonicalName => {
+      const entry = fatePool.find(e => e.name === canonicalName);
       return entry ? entry.factory() : null;
     }).filter(Boolean) as Fate[];
   }
@@ -160,12 +160,12 @@ onMounted(() => {
 
 // Watch and save state
 watch(deck, (newDeck: Fate[]) => {
-  const names = newDeck.map((f: Fate) => f.name);
+  const names = newDeck.map((f: Fate) => f.canonicalName);
   localStorage.setItem('fate_deck', JSON.stringify(names));
 }, { deep: true });
 
 watch(delayedFates, (newDelayed: Fate[]) => {
-  const names = newDelayed.map((f: Fate) => f.name);
+  const names = newDelayed.map((f: Fate) => f.canonicalName);
   localStorage.setItem('fate_delayed', JSON.stringify(names));
 }, { deep: true });
 </script>

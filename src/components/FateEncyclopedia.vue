@@ -14,12 +14,12 @@
       
       <div class="content">
         <div class="fate-grid">
-          <div v-for="item in items" :key="item.instance.name" class="fate-entry" 
+          <div v-for="item in items" :key="item.name" class="fate-entry" 
                :class="{ 'type-delayed': item.instance.category === FateCategory.Delayed }">
             <div class="fate-tag">{{ item.instance.category }}</div>
             <div class="fate-count">x{{ item.count }}</div>
             <div class="fate-info">
-              <h3>{{ item.instance.name }}</h3>
+              <h3>{{ item.name }}</h3>
               <p class="fate-desc">{{ item.instance.description }}</p>
             </div>
           </div>
@@ -34,7 +34,7 @@ import { Fate, FateCategory } from '@/types/Fate';
 
 defineProps<{
   isOpen: boolean;
-  items: { instance: Fate; count: number }[];
+  items: { instance: Fate; name: string; count: number }[];
 }>();
 
 defineEmits<{
