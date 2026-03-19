@@ -128,7 +128,7 @@ h1 {
   font-size: 0.75rem;
   font-weight: bold;
   color: white;
-  background: #2ecc71;
+  background: #3498db;
   padding: 4px 12px;
   border-radius: 20px;
   width: fit-content;

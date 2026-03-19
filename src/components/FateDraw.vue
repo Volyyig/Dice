@@ -105,7 +105,7 @@ const drawFate = () => {
   const now = new Date();
   const item: HistoryItem = {
     value: `${fate.name}: ${drawnFateEffectResult.value}`,
-    color: fate.category === FateCategory.Delayed ? '#f39c12' : '#2ecc71',
+    color: fate.category === FateCategory.Delayed ? '#f39c12' : '#3498db',
     time: `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
   };
   emit('save', item);
@@ -351,7 +351,7 @@ h4 {
 }
 
 .type-normal .card-tag {
-  background: #2ecc71;
+  background: #3498db;
 }
 
 .type-delayed .card-tag {
