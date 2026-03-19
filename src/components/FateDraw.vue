@@ -20,7 +20,7 @@
       </div>
       <div class="delayed-list">
         <div v-for="(fate, index) in delayedFates" :key="fate.name + index" class="delayed-card"
-          @click="discardDelayedFate(index)" title="点击放入弃牌区">
+          @click="activateDelayedFate(index)" title="点击激活命运效果">
           <div class="delayed-card-inner">
             <div class="delayed-name">{{ fate.name }}</div>
             <div class="delayed-desc">{{ fate.description }}</div>
@@ -92,9 +92,14 @@ const drawFate = () => {
   if (!fate) return;
 
   drawnFate.value = fate;
-  
-  // Execute effect and capture result string
-  drawnFateEffectResult.value = fate.effect();
+
+  // Get popup message
+  drawnFateEffectResult.value = fate.onDraw();
+
+  // If normal, execute effect immediately
+  if (fate.category === FateCategory.Instant) {
+    fate.effect();
+  }
 
   // If delayed, add to active list
   if (fate.category === FateCategory.Delayed) {
@@ -115,14 +120,18 @@ const closeModal = () => {
   drawnFate.value = null;
 };
 
-const discardDelayedFate = (index: number) => {
-  delayedFates.value.splice(index, 1);
+const activateDelayedFate = (index: number) => {
+  const fate = delayedFates.value[index];
+  if (fate) {
+    fate.effect();
+    delayedFates.value.splice(index, 1);
+  }
 };
 
 onMounted(() => {
   const savedDeck = localStorage.getItem('fate_deck');
   const savedDelayed = localStorage.getItem('fate_delayed');
-  
+
   if (savedDeck) {
     const names = JSON.parse(savedDeck) as string[];
     initializeDeck(names);
