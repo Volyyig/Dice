@@ -38,7 +38,7 @@
           <div class="card-main">
             <h2>{{ drawnFate.name }}</h2>
             <div class="divider"></div>
-            <p class="description">{{ drawnFate.description }}</p>
+            <p class="description" v-html="drawnFateEffectResult"></p>
           </div>
         </div>
       </div>
@@ -62,6 +62,7 @@ const emit = defineEmits<{
 const deck = ref<Fate[]>([]);
 const delayedFates = ref<Fate[]>([]);
 const drawnFate = ref<Fate | null>(null);
+const drawnFateEffectResult = ref('');
 
 // Shuffle utility
 const shuffle = (array: Fate[]) => {
@@ -91,9 +92,9 @@ const drawFate = () => {
   if (!fate) return;
 
   drawnFate.value = fate;
-
-  // Execute effect
-  fate.effect();
+  
+  // Execute effect and capture result string
+  drawnFateEffectResult.value = fate.effect();
 
   // If delayed, add to active list
   if (fate.category === FateCategory.Delayed) {
@@ -103,7 +104,7 @@ const drawFate = () => {
   // Save to history
   const now = new Date();
   const item: HistoryItem = {
-    value: `${fate.name}`,
+    value: `${fate.name}: ${drawnFateEffectResult.value}`,
     color: fate.category === FateCategory.Delayed ? '#f39c12' : '#2ecc71',
     time: `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
   };

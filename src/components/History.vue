@@ -2,7 +2,7 @@
   <div class="history">
     <div class="history-item" v-for="(item, idx) in items" :key="idx">
       <div class="time-span">{{ item.time }}</div>
-      <div class="value-span" :style="{ color: item.color }">{{ item.value }}</div>
+      <div class="value-span" :style="{ color: item.color }" v-html="item.value"></div>
     </div>
   </div>
 </template>

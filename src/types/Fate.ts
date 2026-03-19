@@ -1,12 +1,12 @@
 export enum FateCategory {
-  Normal = '普通',
+  Normal = '即时',
   Delayed = '延时'
 }
 
 export class Fate {
   constructor(
     public name: string,
-    public effect: () => void,
+    public effect: () => string,
     public category: FateCategory,
     public description: string = ''
   ) {}
