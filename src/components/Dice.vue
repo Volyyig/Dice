@@ -76,7 +76,7 @@ watch(colorIndex, (newVal) => {
 }
 
 .result-container {
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .result-number {
