@@ -7,7 +7,7 @@
             <h2>✨命运</h2>
           </div>
           <div class="deck-info" v-if="deck.length >= 0">
-            <span class="count-value">{{ deck.length }} / {{ fatePool.length }}</span>
+            <span class="count-value">{{ deck.length }} / {{ fatePool.reduce((acc, entry) => acc + entry.count, 0) }}</span>
           </div>
         </div>
       </div>
@@ -76,10 +76,20 @@ const shuffle = (array: Fate[]) => {
 
 const initializeDeck = (savedDeckNames?: string[]) => {
   if (savedDeckNames && savedDeckNames.length > 0) {
-    // Map names back to Fate objects from fatePool
-    deck.value = savedDeckNames.map(name => fatePool.find(f => f.name === name)).filter(Boolean) as Fate[];
+    // Map names back to Fate objects from fatePool factories
+    deck.value = savedDeckNames.map(name => {
+      const entry = fatePool.find(e => e.factory().name === name);
+      return entry ? entry.factory() : null;
+    }).filter(Boolean) as Fate[];
   } else {
-    deck.value = shuffle(fatePool);
+    // Instantiate all fates based on their counts and shuffle
+    const newDeck: Fate[] = [];
+    fatePool.forEach(entry => {
+      for (let i = 0; i < entry.count; i++) {
+        newDeck.push(entry.factory());
+      }
+    });
+    deck.value = shuffle(newDeck);
   }
 };
 
@@ -94,7 +104,7 @@ const drawFate = () => {
   drawnFate.value = fate;
 
   // Get popup message
-  drawnFateEffectResult.value = fate.onDraw();
+  drawnFateEffectResult.value = fate.onDraw;
 
   // If normal, execute effect immediately
   if (fate.category === FateCategory.Instant) {
@@ -141,7 +151,10 @@ onMounted(() => {
 
   if (savedDelayed) {
     const names = JSON.parse(savedDelayed) as string[];
-    delayedFates.value = names.map(name => fatePool.find(f => f.name === name)).filter(Boolean) as Fate[];
+    delayedFates.value = names.map(name => {
+      const entry = fatePool.find(e => e.factory().name === name);
+      return entry ? entry.factory() : null;
+    }).filter(Boolean) as Fate[];
   }
 });
 

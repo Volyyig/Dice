@@ -8,7 +8,7 @@ export class Fate {
     public name: string,
     public category: FateCategory,
     public description: string = '',
-    public onDraw: () => string,
-    public effect: () => void = () => { }
+    public onDraw: string,            // 在抽取时展示的信息框中显示的文字
+    public effect: () => void = () => { }   // 实际执行的效果（若是延时类命运，会在脱离暂存区时执行）
   ) { }
 }

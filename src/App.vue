@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import Dice from './components/Dice.vue'
 import FateDraw from './components/FateDraw.vue'
 import History from './components/History.vue'
@@ -13,9 +13,13 @@ const history = ref<HistoryItem[]>([]);
 const isSidebarOpen = ref(false);
 const isFullHistoryOpen = ref(false);
 const isEncyclopediaOpen = ref(false);
+const encyclopediaItems = computed(() => fatePool.map(entry => ({
+  instance: entry.factory(),
+  count: entry.count
+})));
 
 const handleSave = (item: HistoryItem) => {
-  history.value = [item, ...history.value.slice(0, 49)]; // Limit to 50 items
+  history.value = [item, ...history.value.slice(0, 500)]; // All history
 }
 
 const toggleSidebar = () => {
@@ -72,13 +76,13 @@ watch(history, (newHistory) => {
 
     <FateEncyclopedia
       :is-open="isEncyclopediaOpen"
-      :items="fatePool"
+      :items="encyclopediaItems"
       @close="isEncyclopediaOpen = false"
     />
 
     <FateDraw @save="handleSave" />
     <Dice @save="handleSave" />
-    <History :items="history.slice(0, 5)" />
+    <History :items="history.slice(0, 10)" />
   </div>
 </template>
 

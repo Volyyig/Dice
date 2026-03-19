@@ -14,12 +14,13 @@
       
       <div class="content">
         <div class="fate-grid">
-          <div v-for="fate in items" :key="fate.name" class="fate-entry" 
-               :class="{ 'type-delayed': fate.category === FateCategory.Delayed }">
-            <div class="fate-tag">{{ fate.category }}</div>
+          <div v-for="item in items" :key="item.instance.name" class="fate-entry" 
+               :class="{ 'type-delayed': item.instance.category === FateCategory.Delayed }">
+            <div class="fate-tag">{{ item.instance.category }}</div>
+            <div class="fate-count">x{{ item.count }}</div>
             <div class="fate-info">
-              <h3>{{ fate.name }}</h3>
-              <p class="fate-desc">{{ fate.description }}</p>
+              <h3>{{ item.instance.name }}</h3>
+              <p class="fate-desc">{{ item.instance.description }}</p>
             </div>
           </div>
         </div>
@@ -33,7 +34,7 @@ import { Fate, FateCategory } from '@/types/Fate';
 
 defineProps<{
   isOpen: boolean;
-  items: Fate[];
+  items: { instance: Fate; count: number }[];
 }>();
 
 defineEmits<{
@@ -137,6 +138,23 @@ h1 {
 
 .type-delayed .fate-tag {
   background: #f39c12;
+}
+
+.fate-count {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--color-background-mute);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #3498db;
+  border: 1px solid var(--color-border);
+}
+
+.type-delayed .fate-count {
+  color: #f39c12;
 }
 
 h3 {
