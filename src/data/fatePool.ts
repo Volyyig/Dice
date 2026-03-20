@@ -220,7 +220,7 @@ export const fatePool: FatePoolEntry[] = [
       "环球旅行",
       name,
       FateCategory.Instant,
-      `传送到${randomChoice([formatEmphasis("任意位置", "gain"), formatColor("起点", "#dbf800"), formatColor("夏威夷", "#dbf800"), formatColor("地中海", "#0078f8ff"), formatColor("北极", "#0078f8ff")])}`,
+      `传送到${randomChoice([formatEmphasis("任意位置", "gain"), formatColor("起点", "#27ae60"), formatColor("夏威夷", "#27ae60"), formatColor("地中海", "#0078f8ff"), formatColor("北极", "#0078f8ff")])}`,
       () => {
         console.log("Effect: Teleport to start");
       }
