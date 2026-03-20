@@ -45,7 +45,7 @@ export const fatePool: FatePoolEntry[] = [
         }
       );
     },
-    count: 3
+    count: 5
   },
   {
     name: "霉运降临",
@@ -62,7 +62,7 @@ export const fatePool: FatePoolEntry[] = [
         }
       );
     },
-    count: 2
+    count: 3
   },
   {
     name: "禁闭室",
@@ -90,7 +90,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: Stay in place");
       }
     ),
-    count: 1
+    count: 2
   },
   {
     name: "快人一步",
@@ -104,7 +104,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: Add 1 round");
       }
     ),
-    count: 1
+    count: 2
   },
   {
     name: "空间扭曲",
@@ -118,7 +118,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: Space warp");
       }
     ),
-    count: 2
+    count: 3
   },
   {
     name: "时空裂缝",
@@ -134,7 +134,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: Teleport");
       }
     )},
-    count: 1
+    count: 2
   },
   {
     name: "地租调整",
@@ -151,7 +151,7 @@ export const fatePool: FatePoolEntry[] = [
         }
       )
     },
-    count: 1
+    count: 2
   },
   {
     name: "市场波动",
@@ -165,7 +165,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: Market fluctuation");
       }
     ),
-    count: 1
+    count: 2
   },
   {
     name: "什一税",
@@ -211,7 +211,7 @@ export const fatePool: FatePoolEntry[] = [
         }
       )
     },
-    count: 1
+    count: 2
   },
   {
     name: "环球旅行",
@@ -225,7 +225,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: Teleport to start");
       }
     ),
-    count: 1
+    count: 3
   },
   {
     name: "迷失方向",
@@ -239,7 +239,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: reverse direction");
       }
     ),
-    count: 1
+    count: 2
   },
   {
     name: "乾坤大挪移",
@@ -253,7 +253,7 @@ export const fatePool: FatePoolEntry[] = [
         console.log("Effect: swap position");
       }
     ),
-    count: 1
+    count: 2
   },
   {
     name: "变速器",
@@ -270,6 +270,6 @@ export const fatePool: FatePoolEntry[] = [
         }
       )
     },
-    count: 1
+    count: 2
   }
 ];
